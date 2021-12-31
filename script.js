@@ -31,3 +31,29 @@ navLinks.addEventListener('click', function(e){
         document.querySelector(id).scrollIntoView({behavior: 'smooth'});
     }
 });
+
+// Sticky Nav...
+const stickTheNav = function(entries, observer){
+    const [entry] = entries;
+
+    if(!entry.isIntersecting) nav.classList.add('sticky');
+    else nav.classList.remove('sticky');
+}
+
+const observer = new IntersectionObserver(stickTheNav, {
+    root: null,
+    threshold: 0,
+    rootMargin: '-85px',
+});
+
+observer.observe(header);
+
+const navObserver = new IntersectionObserver(function(entries, observer){
+    const [entry] = entries;
+    if(!entry.isIntersecting) nav.classList.add('transform');
+    else nav.classList.remove('transform');
+}, {
+    root: null,
+    threshold: 0,
+});
+navObserver.observe(nav);
