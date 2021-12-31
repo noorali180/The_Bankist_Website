@@ -9,7 +9,8 @@ const nav = document.querySelector('.nav');
 const header = document.querySelector('.header');
 const tabsContainer = document.querySelector('.operations_tab-container');
 const operationTabs = document.querySelectorAll('.operations_tab');
-const tabsContent = document.querySelectorAll('.operations_content')
+const tabsContent = document.querySelectorAll('.operations_content');
+const sections = document.querySelectorAll('.section');
 
 // Smooth Scrolling...
 scrollToBtn.addEventListener('click', function(e){
@@ -79,4 +80,24 @@ tabsContainer.addEventListener('click', function(e){
     clicked.classList.add('operations_tab-active');
     // adding active class to the target content.
     document.querySelector(`.operations_content-${clicked.dataset.tab}`).classList.add('operations_content-active');
+});
+
+// Reveal sections on scroll...
+
+const revealSections = function(entries){
+    const [entry] = entries;
+
+    if(!entry.isIntersecting) return;
+
+    entry.target.classList.remove('section-hidden');
+    sectionObserver.unobserve(entry.target);
+}
+
+const sectionObserver = new IntersectionObserver(revealSections, {
+    root: null,
+    threshold: 0.20,
+});
+sections.forEach((section) => {
+    sectionObserver.observe(section);
+    section.classList.add('section-hidden');
 });
