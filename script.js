@@ -222,3 +222,25 @@ const sliderr = function(){
     });
 }
 sliderr();
+
+// SHOW MODAL FUNCTIONALITY...
+
+const modal = document.querySelector('.modal');
+const modalShowBtns = document.querySelectorAll('.btn-show-modal');
+const modalCloseBtn = document.querySelector('.btn-close-modal');
+const overlay = document.querySelector('.overlay');
+
+modalShowBtns.forEach((btn) => {
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+        modal.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+    });
+});
+
+modalCloseBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
+})
