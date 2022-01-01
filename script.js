@@ -120,7 +120,7 @@ const sectionObserver = new IntersectionObserver(revealSections, {
 });
 sections.forEach((section) => {
     sectionObserver.observe(section);
-    section.classList.add('section-hidden');
+    // section.classList.add('section-hidden');
 });
 
 // Lazy loading images...
@@ -145,4 +145,35 @@ const imgObserver = new IntersectionObserver(lazyLoadImages, {
 });
 imageTargets.forEach((img) => imgObserver.observe(img));
 
+// SLIDER...
+let curSlide = 0;
 
+const goToSlide = function(slide){
+    slides.forEach((slide, i) => {
+        slide.style.transform = `translateX(${100 * (i-curSlide)}%)`;
+    });
+    // 0%, 100%, 200%
+}
+// to set initial condition. // 0%, 100%, 200%,
+goToSlide(0);
+
+// function to go to next slide..
+const nextSlide = function(){
+    if(curSlide === slides.length - 1) curSlide = 0;
+    else curSlide++;
+    // -100%, 0%, 100%
+
+    goToSlide(curSlide);
+}
+
+// function to go to previous slide..
+const prevSlide = function(){
+    if(curSlide === 0) curSlide = slides.length - 1;
+    else curSlide--;
+    // 0%, 100%, 200%
+
+    goToSlide(curSlide);
+}
+
+sliderNextBtn.addEventListener('click', nextSlide);
+sliderPrevBtn.addEventListener('click', prevSlide);
