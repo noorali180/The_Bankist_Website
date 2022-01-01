@@ -18,7 +18,11 @@ const slides = document.querySelectorAll('.slide');
 const sliderNextBtn = document.querySelector('.slider_btn-right');
 const sliderPrevBtn = document.querySelector('.slider_btn-left');
 
-// Smooth Scrolling...
+const dotsContainer = document.querySelector('.dots');
+// const dots = document.querySelectorAll('.dots_dot');
+
+// SMOOTH SCROLLING...
+
 scrollToBtn.addEventListener('click', function(e){
     e.preventDefault();
 
@@ -42,7 +46,8 @@ navLinks.addEventListener('click', function(e){
     }
 });
 
-// Sticky Nav...
+// STICKY NAV...
+
 const stickTheNav = function(entries, observer){
     const [entry] = entries;
 
@@ -69,7 +74,8 @@ const navObserver = new IntersectionObserver(function(entries, observer){
 });
 navObserver.observe(nav);
 
-// Nav Animation Handler...
+// NAV ANIMATION HANDLER...
+
 const animateNav = function(e){
     if(e.target.classList.contains('nav_link')){
         const link = e.target;
@@ -85,7 +91,8 @@ const animateNav = function(e){
 nav.addEventListener('mouseover', animateNav.bind(0.5));
 nav.addEventListener('mouseout', animateNav.bind(1));
 
-// Tabbed component implementation...
+// TABBED COMPONENT IMPLIMENTATION...
+
 tabsContainer.addEventListener('click', function(e){
     e.preventDefault();
 
@@ -104,7 +111,8 @@ tabsContainer.addEventListener('click', function(e){
     document.querySelector(`.operations_content-${clicked.dataset.tab}`).classList.add('operations_content-active');
 });
 
-// Reveal sections on scroll...
+// REVEAL SECTIONS ON SCROLL...
+
 const revealSections = function(entries){
     const [entry] = entries;
 
@@ -123,7 +131,8 @@ sections.forEach((section) => {
     // section.classList.add('section-hidden');
 });
 
-// Lazy loading images...
+// LAZY LOADING IMAGES...
+
 const lazyLoadImages = function(entries){
     const [entry] = entries;
 
@@ -146,34 +155,70 @@ const imgObserver = new IntersectionObserver(lazyLoadImages, {
 imageTargets.forEach((img) => imgObserver.observe(img));
 
 // SLIDER...
-let curSlide = 0;
 
-const goToSlide = function(slide){
-    slides.forEach((slide, i) => {
-        slide.style.transform = `translateX(${100 * (i-curSlide)}%)`;
+const sliderr = function(){
+    let curSlide;
+
+    // FUNCTIONALITIES.... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    const createDots = function(){
+        slides.forEach((_, i) => {
+            dotsContainer.insertAdjacentHTML('beforeend', 
+            `
+            <div class="dots_dot" data-dot="${i}"></div>
+            `);
+        });
+    }
+
+    const activateDots = function(){
+        document.querySelectorAll('.dots_dot').forEach((dot) => {
+            dot.classList.remove('dots_dot-active');
+        });
+        document.querySelector(`.dots_dot[data-dot = "${curSlide}"]`).classList.add('dots_dot-active');
+    }
+
+    const goToSlide = function(slide){
+        slides.forEach((sl, i) => {
+            sl.style.transform = `translateX(${100 * (i-slide)}%)`;
+        });
+        // 0%, 100%, 200%
+        activateDots();
+    }
+
+    const init = function(){
+        curSlide = 0;
+        createDots();
+        // to set initial condition. // 0%, 100%, 200%,
+        goToSlide(curSlide);
+    }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    init();
+
+    // function to go to next slide..
+    const nextSlide = function(){
+        if(curSlide === slides.length - 1) curSlide = 0;
+        else curSlide++;
+        // -100%, 0%, 100%
+
+        goToSlide(curSlide);
+    }
+
+    // function to go to previous slide..
+    const prevSlide = function(){
+        if(curSlide === 0) curSlide = slides.length - 1;
+        else curSlide--;
+        // 0%, 100%, 200%
+
+        goToSlide(curSlide);
+    }
+
+    sliderNextBtn.addEventListener('click', nextSlide);
+    sliderPrevBtn.addEventListener('click', prevSlide);
+    dotsContainer.addEventListener('click', function(e){
+        if (e.target.classList.contains('dots_dot')){
+            const slide = +e.target.dataset.dot;
+            curSlide = slide;
+            goToSlide(curSlide);
+        }
     });
-    // 0%, 100%, 200%
 }
-// to set initial condition. // 0%, 100%, 200%,
-goToSlide(0);
-
-// function to go to next slide..
-const nextSlide = function(){
-    if(curSlide === slides.length - 1) curSlide = 0;
-    else curSlide++;
-    // -100%, 0%, 100%
-
-    goToSlide(curSlide);
-}
-
-// function to go to previous slide..
-const prevSlide = function(){
-    if(curSlide === 0) curSlide = slides.length - 1;
-    else curSlide--;
-    // 0%, 100%, 200%
-
-    goToSlide(curSlide);
-}
-
-sliderNextBtn.addEventListener('click', nextSlide);
-sliderPrevBtn.addEventListener('click', prevSlide);
+sliderr();
