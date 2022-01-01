@@ -13,6 +13,11 @@ const tabsContent = document.querySelectorAll('.operations_content');
 const sections = document.querySelectorAll('.section');
 const imageTargets = document.querySelectorAll('img[data-src]');
 
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slide');
+const sliderNextBtn = document.querySelector('.slider_btn-right');
+const sliderPrevBtn = document.querySelector('.slider_btn-left');
+
 // Smooth Scrolling...
 scrollToBtn.addEventListener('click', function(e){
     e.preventDefault();
@@ -64,6 +69,22 @@ const navObserver = new IntersectionObserver(function(entries, observer){
 });
 navObserver.observe(nav);
 
+// Nav Animation Handler...
+const animateNav = function(e){
+    if(e.target.classList.contains('nav_link')){
+        const link = e.target;
+        const siblings = e.target.closest('.nav').querySelectorAll('.nav_link');
+        const logo = e.target.closest('.nav').querySelector('img');
+
+        siblings.forEach((el) => {
+            if(el !== link) el.style.opacity = this;
+        });
+        logo.style.opacity = this;
+    }
+}
+nav.addEventListener('mouseover', animateNav.bind(0.5));
+nav.addEventListener('mouseout', animateNav.bind(1));
+
 // Tabbed component implementation...
 tabsContainer.addEventListener('click', function(e){
     e.preventDefault();
@@ -107,7 +128,7 @@ const lazyLoadImages = function(entries){
     const [entry] = entries;
 
     if(!entry.isIntersecting) return;
-    
+
     entry.target.src = entry.target.dataset.src;
 
     entry.target.addEventListener('load', function(){
@@ -123,3 +144,5 @@ const imgObserver = new IntersectionObserver(lazyLoadImages, {
     rootMargin: '-200px',
 });
 imageTargets.forEach((img) => imgObserver.observe(img));
+
+
