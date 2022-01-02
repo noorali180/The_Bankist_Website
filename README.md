@@ -4,4 +4,4 @@ small javascript project.
 
 ## 🚀 quick glance to website :-
 
-https://user-images.githubusercontent.com/91412416/147879882-31240fb8-1f0c-4a9b-becc-fe46b0aa048a.mp4
+<img src="video.gif" width="500" height="500"/>
