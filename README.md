@@ -3,5 +3,3 @@
 small javascript project.
 
 ## 🚀 quick glance to website :-
-
-<img src="video.gif" width="1024" height="900"/>
