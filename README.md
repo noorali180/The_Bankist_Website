@@ -4,6 +4,4 @@ small javascript project.
 
 ## 🚀 quick glance to website :-
 
-<video width="500" height="500" controls>
-<source src ="video.mp4" type="video/mp4"> 
-</video>
+https://user-images.githubusercontent.com/91412416/147879882-31240fb8-1f0c-4a9b-becc-fe46b0aa048a.mp4
