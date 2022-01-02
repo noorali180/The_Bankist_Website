@@ -4,4 +4,4 @@ small javascript project.
 
 ## 🚀 small glance to website :-
 
-<video src="./video.wmv"></video>
+<video src="./video.wmv" width="500" height="500"></video>
