@@ -4,4 +4,4 @@ small javascript project.
 
 ## 🚀 small glance to website :-
 
-
+<video src="../video.wmv></video>
