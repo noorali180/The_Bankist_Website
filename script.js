@@ -20,7 +20,6 @@ const sliderPrevBtn = document.querySelector('.slider_btn-left');
 
 const dotsContainer = document.querySelector('.dots');
 // const dots = document.querySelectorAll('.dots_dot');
-
 // SMOOTH SCROLLING...
 
 scrollToBtn.addEventListener('click', function(e){
@@ -49,7 +48,7 @@ navLinks.addEventListener('click', function(e){
 // STICKY NAV...
 
 const stickTheNav = function(entries, observer){
-    const [entry] = entries;
+    const [entry] = entries; // could be array of multiple thresholds. (entries)
 
     if(!entry.isIntersecting) nav.classList.add('sticky');
     else nav.classList.remove('sticky');
